@@ -113,6 +113,8 @@
 </head>
 <body>
     <script>
+	    
+	const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
         async function get(sou_name) {
             var url = 'https://search.kuwo.cn/r.s?client=kt&all='+encodeURI(sou_name)+'&pn=0&rn=50&uid=221260053&ver=kwplayer_ar_99.99.99.99&vipver=1&ft=music&cluster=0&strategy=2012&encoding=utf8&rformat=json&vermerge=1&mobi=1'
             var res = await axios.get(url);
@@ -128,6 +130,7 @@
                 var dowo_res = await axios.get(dowo_url);
                 var song_url = dowo_res['data']['data']['url'];
                 document.getElementById('Introduction').insertAdjacentHTML('beforeend', '<div><img src="'+pic+'"><h3>'+geming+'</h3><p>'+geshou+'</p><p>'+zhaunji+'</h3></p><audio controls><source src="'+song_url+'" type="audio/mpeg"><embed height="50" width="100" src="'+song_url+'"></audio></div>');
+		await sleep(100)
             }
         }
         async function dianji() {
