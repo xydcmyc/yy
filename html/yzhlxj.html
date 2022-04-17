@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>川川小说网-杨渣辉旅行记</title>
+    <style>
+        .Navigation_bar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgba(116, 185, 255,1);
+        }
+        .Navigation_bar ul li {
+            float: left;
+        }
+        .Navigation_bar ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .Navigation_bar ul li a:hover:not(.active) {
+            background-color: rgba(9, 132, 227,0.5);
+        }
+        .active {
+            background-color: rgba(108, 92, 231,0.3);
+        }
+        #Introduction div {
+            font-size: 30px;
+            border-radius: 10px;
+            background-color: rgba(126, 255, 245,0.4);
+            text-align: center;
+            width: 80%;
+            left: 0;
+            right: 0;
+            top: 10px;
+            margin:20px auto;
+            white-space:normal;
+            word-wrap : break-word;
+            font-family:"宋体";
+        }
+        #Introduction div p {
+            text-align: left;
+            font-family: "楷体";
+        }
+        </style>
+</head>
+<body>
+    <script>
+        async function get(){
+            var url = 'https://api.vika.cn/fusion/v1/datasheets/dstaveq71LchM9qFoc/records';
+            var res = await axios.get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer uskbMBv5l7iLZ41zwkVQcN1',
+                }
+            });
+            var json = res['data']['data']['records']
+            for (let i = 0; i < json.length; i++) {
+                var zhangshu = json[i]['fields']['章数'];
+                var text = json[i]['fields']['内容'];
+                document.getElementById("Introduction").insertAdjacentHTML('beforeend', '<div><h3>第'+zhangshu+'章</h3><p>'+text+'</p></div>');
+            }
+        }
+        
+    </script>
+    <div class="Navigation_bar">
+        <ul>
+            <li><a href="../index.html">主页</a></li>
+            <li><a href="./xydz.html">校园大战</a></li>
+            <li><a href="#">超甜小故事</a></li>
+            <li><a href="./lmdwfrj.html">老满的挖坟日记</a></li>
+            <li><a class="active">杨渣辉旅行记</a></li>
+            <li><a href="./yy.html">音乐</a></li>
+        </ul>
+    </div>
+    <div id="Introduction">
+        <div class="a"></div>
+    </div>
+    <script>get()</script>
+</body>
+</html>

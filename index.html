@@ -1,158 +1,80 @@
 <!DOCTYPE html>
-<html lang="ch-zn">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>川川小说网-音乐</title>
-    <style>
-        .dropbtn {
-            background-color: rgba(164, 176, 190,0.7);
+<html>
+    <head>
+        <meta charset="utf-8" >
+        <title>川川小说网-主页</title>
+        <link rel="stylesheet" type="text/css" href="./css/index.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <style>
+        .Navigation_bar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgba(116, 185, 255,1);
+        }
+        .Navigation_bar ul li {
+            float: left;
+        }
+        .Navigation_bar ul li a {
+            display: block;
             color: white;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
+            text-align: center;
+            padding: 14px 16px;
             text-decoration: none;
-            display: block;
         }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: rgba(164, 176, 190,1.0);
+        .Navigation_bar ul li a:hover:not(.active) {
+            background-color: rgba(9, 132, 227,0.5);
         }
         .active {
-            background-color: rgba(105, 105, 105, 0.5);
-        }
-        .active:hover {
-            background-color: rgba(105, 105, 105, 0.5);
+            background-color: rgba(108, 92, 231,0.3);
         }
         #Introduction div {
             border-radius: 25px;
             background-color: rgba(206, 214, 224,1.0);
             text-align: center;
-            width: 98%;
-            left: 0;
-            right: 0;
-            top: 10;
-            margin:15px 50% 15px 50%;
-            white-space:normal;
-            word-wrap : break-word;
+            float: left;
+            width: 24%;
             margin:9.5px 9.5px;
             top: 10px;
         }
-        #Introduction div img {
-            border-radius: 15px;
-            margin:9.5px 9.5px;
-        }
-        .dome {
-            text-align: center;
-        }
-        .dome input {
-            margin:9.5px 9.5px;
-            outline-style: none;
-            border: 1px solid #ccc; 
-            border-radius: 3px;
-            padding: 13px 14px;
-            width: 80%;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: "Microsoft soft";
-        }
-        .dome input:focus{
-            border-color: #66afe9;
-            outline: 0;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
-        }
-        .dome button {
-            width: 150px;
-			height: 45px;
-			color:white;
-			background-color:cornflowerblue;
-			border-radius: 3px;
-			border-width: 0;
-			margin: 0;
-			outline: none;
-			font-size: 17px;
-			text-align: center;
-			cursor: pointer;
-        }
-        .dome button:hover{
-			background-color: rgb(115, 158, 238);
-		}
-    </style>
-</head>
-<body>
-    <script>
-        async function get(sou_name) {
-            var url = 'https://search.kuwo.cn/r.s?client=kt&all='+encodeURI(sou_name)+'&pn=0&rn=50&uid=221260053&ver=kwplayer_ar_99.99.99.99&vipver=1&ft=music&cluster=0&strategy=2012&encoding=utf8&rformat=json&vermerge=1&mobi=1'
-            var res = await axios.get(url);
-            var json = res['data']['abslist'];
-            for (var i = 0;i < json.length;i++) {
-                var zhaunji = json[i]['ALBUM'];
-                var geshou = json[i]['ARTIST'];
-                var reqid = json[i]['MUSICRID'];
-                var mid = json[i]['DC_TARGETID'];
-                var geming = json[i]['SONGNAME'];
-                var pic = 'https://img2.kuwo.cn/star/albumcover/'+json[i]['web_albumpic_short']
-                var dowo_url = 'https://www.kuwo.cn/api/v1/www/music/playUrl?mid=' + mid + '&type=convert_url3&httpsStatus=1&reqId=' + reqid;
-                var dowo_res = await axios.get(dowo_url);
-                var song_url = dowo_res['data']['data']['url'];
-                document.getElementById('Introduction').insertAdjacentHTML('beforeend', '<div><img src="'+pic+'"><h3>'+geming+'</h3><p>'+geshou+'</p><p>'+zhaunji+'</h3></p><audio controls><source src="'+song_url+'" type="audio/mpeg"><embed height="50" width="100" src="'+song_url+'"></audio></div>');
+        </style>
+    </head>
+    <body>
+        <script>
+            var ua = navigator.userAgent.toLowerCase();
+            if (/mobile|android|iphone|ipad|phone/i.test(ua)) {
+                window.location.href="./html/sj/index_sj.html";
             }
-        }
-        async function dianji() {
-            var a = document.getElementById('Introduction');
-            a.innerHTML = '';
-            var shuru = document.getElementById('input').value;
-            get(shuru);
-        }
-    </script>
-    <div class="dropdown" style="float:left;">
-        <button class="dropbtn">菜单</button>
-        <div class="dropdown-content" style="left:0;">
-            <a href="./index_sj.html">主页</a>
-            <a href="./xydz_sj.html">校园大战</a>
-            <a href="#">超甜小故事</a>
-            <a href="./lmdwfrj_sj.html">老满的挖坟日记</a>
-            <a href="./yzhlxj_sj.html">杨渣辉旅行记</a>
-            <a class="active">音乐</a>
+            async function get(){
+                var url = 'https://api.vika.cn/fusion/v1/datasheets/dstd9oM1ahf2tnqbeY/records';
+                var res = await axios.get(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer uskbMBv5l7iLZ41zwkVQcN1',
+                    }
+                });
+                var json = res['data']['data']['records']
+                for (let i = 0; i < json.length; i++) {
+                    var title = json[i]['fields']['书名'];
+                    var author = json[i]['fields']['作者'];
+                    var Introduction = json[i]['fields']['简介'];
+                    document.getElementById("Introduction").insertAdjacentHTML('beforeend', '<div><h3>'+title+'</h3><p>'+author+'</h3></p><p>'+Introduction+'</p></div>');
+                }
+            }
+        </script>
+        <div class="Navigation_bar">
+            <ul>
+                <li><a class = "active">主页</a></li>
+                <li><a href="./html/xydz.html">校园大战</a></li>
+                <li><a href="#">超甜小故事</a></li>
+                <li><a href="./html/lmdwfrj.html">老满的挖坟日记</a></li>
+                <li><a href="./html/yzhlxj.html">杨渣辉旅行记</a></li>
+                <li><a href="./html/yy.html">音乐</a></li>
+            </ul>
         </div>
-    </div>
-    <div class="dome">
-        <input id="input" value="" type="text" title="请输入" placeholder="请输入你要搜索的歌关键词：">
-        <br>
-        <button onclick="dianji()">搜索</button>
-    </div>
-    <div id="Introduction"></div>
-</body>
+        <div class="img"></div>
+        <div id="Introduction"></div>
+        <script>get()</script>
+    </body>
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ch-zn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>川川小说网-校园大战</title>
+    <style>
+        .dropbtn {
+            background-color: rgba(164, 176, 190,0.7);
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: rgba(164, 176, 190,1.0);
+        }
+        .active {
+            background-color: rgba(105, 105, 105, 0.5);
+        }
+        .active:hover {
+            background-color: rgba(105, 105, 105, 0.5);
+        }
+        #Introduction div {
+            font-size: 30px;
+            border-radius: 10px;
+            background-color: rgba(126, 255, 245,0.4);
+            text-align: center;
+            width: 60%;
+            left: 0;
+            right: 0;
+            top: 10px;
+            margin:20px auto;
+            white-space:normal;
+            word-wrap : break-word;
+            font-family:"宋体";
+        }
+        #Introduction div p {
+            text-align: left;
+            font-family: "楷体";
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        async function get(){
+            var url = 'https://api.vika.cn/fusion/v1/datasheets/dstAsizG4Kv5BHKkDw/records';
+            var res = await axios.get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer uskbMBv5l7iLZ41zwkVQcN1',
+                }
+            });
+            var json = res['data']['data']['records']
+            for (let i = 0; i < json.length; i++) {
+                var zhangshu = json[i]['fields']['章数'];
+                var text = json[i]['fields']['内容'];
+                document.getElementById("Introduction").insertAdjacentHTML('beforeend', '<div><h6>第'+zhangshu+'章</h6><p>'+text+'</p></div>');
+            }
+        }
+        
+    </script>
+    <div class="dropdown" style="float:left;">
+        <button class="dropbtn">菜单</button>
+        <div class="dropdown-content" style="left:0;">
+            <a href="./index_sj.html">主页</a>
+            <a class="active">校园大战</a>
+            <a href="#">超甜小故事</a>
+            <a href="./lmdwfrj_sj.html">老满的挖坟日记</a>
+            <a href="./yzhlxj_sj.html">杨渣辉旅行记</a>
+            <a href="./yy_sj.html">音乐</a>
+        </div>
+    </div>
+    <div id="Introduction">
+        <div class="a"></div>
+    </div>
+    <script>get()</script>
+</body>
+</html>

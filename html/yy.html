@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>川川小说网-音乐</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .Navigation_bar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgba(116, 185, 255,1);
+        }
+        .Navigation_bar ul li {
+            float: left;
+        }
+        .Navigation_bar ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .Navigation_bar ul li a:hover:not(.active) {
+            background-color: rgba(9, 132, 227,0.5);
+        }
+        .active {
+            background-color: rgba(108, 92, 231,0.3);
+        }
+        #Introduction div {
+            border-radius: 25px;
+            background-color: rgba(206, 214, 224,1.0);
+            text-align: center;
+            float: left;
+            width: 31%;
+            margin:9.5px 9.5px;
+            top: 10px;
+        }
+        #Introduction div img {
+            border-radius: 15px;
+            margin:9.5px 9.5px;
+        }
+        .dome {
+            text-align: center;
+        }
+        .dome input {
+            margin:9.5px 9.5px;
+            outline-style: none;
+            border: 1px solid #ccc; 
+            border-radius: 3px;
+            padding: 13px 14px;
+            width: 620px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Microsoft soft";
+        }
+        .dome input:focus{
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+        .dome button {
+            width: 150px;
+			height: 45px;
+			color:white;
+			background-color:cornflowerblue;
+			border-radius: 3px;
+			border-width: 0;
+			margin: 0;
+			outline: none;
+			font-size: 17px;
+			text-align: center;
+			cursor: pointer;
+        }
+        .dome button:hover{
+			background-color: rgb(115, 158, 238);
+		}
+    </style>
+</head>
+<body>
+    <script>
+        async function get(sou_name) {
+            var url = 'https://search.kuwo.cn/r.s?client=kt&all='+encodeURI(sou_name)+'&pn=0&rn=50&uid=221260053&ver=kwplayer_ar_99.99.99.99&vipver=1&ft=music&cluster=0&strategy=2012&encoding=utf8&rformat=json&vermerge=1&mobi=1'
+            var res = await axios.get(url);
+            var json = res['data']['abslist'];
+            for (var i = 0;i < json.length;i++) {
+                var zhaunji = json[i]['ALBUM'];
+                var geshou = json[i]['ARTIST'];
+                var reqid = json[i]['MUSICRID'];
+                var mid = json[i]['DC_TARGETID'];
+                var geming = json[i]['SONGNAME'];
+                var pic = 'https://img2.kuwo.cn/star/albumcover/'+json[i]['web_albumpic_short']
+                var dowo_url = 'https://www.kuwo.cn/api/v1/www/music/playUrl?mid=' + mid + '&type=convert_url3&httpsStatus=1&reqId=' + reqid;
+                var dowo_res = await axios.get(dowo_url);
+                var song_url = dowo_res['data']['data']['url'];
+                document.getElementById('Introduction').insertAdjacentHTML('beforeend', '<div><img src="'+pic+'"><h3>'+geming+'</h3><p>'+geshou+'</p><p>'+zhaunji+'</h3></p><audio controls><source src="'+song_url+'" type="audio/mpeg"><embed height="50" width="100" src="'+song_url+'"></audio></div>');
+            }
+        }
+        async function dianji() {
+            var a = document.getElementById('Introduction');
+            a.innerHTML = '';
+            var shuru = document.getElementById('input').value;
+            get(shuru);
+        }
+    </script>
+    <div class="Navigation_bar">
+        <ul>
+            <li><a href="../index.html">主页</a></li>
+            <li><a href="./xydz.html">校园大战</a></li>
+            <li><a href="#">超甜小故事</a></li>
+            <li><a href="./lmdwfrj.html">老满的挖坟日记</a></li>
+            <li><a href="./yzhlxj.html">杨渣辉旅行记</a></li>
+            <li><a class="active">音乐</a></li>
+        </ul>
+    </div>
+    <div class="dome">
+        <input id="input" value="" type="text" title="请输入" placeholder="请输入你要搜索的歌关键词：">
+        <button onclick="dianji()">搜索</button>
+    </div>
+    <div id="Introduction"></div>
+</body>
+</html>
