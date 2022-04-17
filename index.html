@@ -124,7 +124,7 @@
                 var mid = json[i]['DC_TARGETID'];
                 var geming = json[i]['SONGNAME'];
                 var pic = 'https://img2.kuwo.cn/star/albumcover/'+json[i]['web_albumpic_short']
-                var dowo_url = 'http://www.kuwo.cn/api/v1/www/music/playUrl?mid=' + mid + '&type=convert_url3&httpsStatus=1&reqId=' + reqid;
+                var dowo_url = 'https://www.kuwo.cn/api/v1/www/music/playUrl?mid=' + mid + '&type=convert_url3&httpsStatus=1&reqId=' + reqid;
                 var dowo_res = await axios.get(dowo_url);
                 var song_url = dowo_res['data']['data']['url'];
                 document.getElementById('Introduction').insertAdjacentHTML('beforeend', '<div><img src="'+pic+'"><h3>'+geming+'</h3><p>'+geshou+'</p><p>'+zhaunji+'</h3></p><audio controls><source src="'+song_url+'" type="audio/mpeg"><embed height="50" width="100" src="'+song_url+'"></audio></div>');
