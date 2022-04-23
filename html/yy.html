@@ -100,7 +100,7 @@
                 var dowo_res = await axios.get(dowo_url);
                 var song_url = dowo_res['data']['data']['url'];
                 document.getElementById('Introduction').insertAdjacentHTML('beforeend', '<div><img src="'+pic+'"><h3>'+geming+'</h3><p>'+geshou+'</p><p>'+zhaunji+'</h3></p><audio controls><source src="'+song_url+'" type="audio/mpeg"><embed height="50" width="100" src="'+song_url+'"></audio></div>');
-		await sleep(100)
+		await sleep(500)
             }
         }
         async function dianji() {
